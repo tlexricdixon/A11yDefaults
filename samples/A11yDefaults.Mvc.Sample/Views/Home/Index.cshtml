@@ -1,0 +1,172 @@
+@{
+    ViewData["Title"] = "MVC Package Sample";
+}
+
+<section class="hero">
+    <div class="hero__eyebrow">NuGet-shaped accessibility defaults for MVC</div>
+    <h1>Native Razor markup, safer defaults, less remembering.</h1>
+    <p class="hero__lede">
+        This sample shows the package enhancing normal <code>&lt;a&gt;</code>, <code>&lt;button&gt;</code>,
+        and button-like <code>&lt;input&gt;</code> elements with minimum target sizes and clearer link behavior.
+    </p>
+</section>
+
+<section class="showcase">
+    <div class="showcase__band">
+        <div>
+            <h2>Buttons get a 24 by 24 minimum target by default</h2>
+            <p>
+                The package adds a class to buttons and button-like inputs automatically, which maps to the
+                WCAG 2.2 minimum target size baseline.
+            </p>
+        </div>
+        <div class="demo-toolbar" aria-label="Button target-size examples">
+            <button class="demo-chip" aria-label="Refresh dashboard">
+                <span aria-hidden="true">↻</span>
+            </button>
+            <button class="demo-chip">Save</button>
+            <button class="demo-chip" a11y-hit-target="@A11yTargetSize.Enhanced">Publish</button>
+            <input class="demo-chip" type="submit" value="Submit" />
+        </div>
+    </div>
+
+    <div class="showcase__band">
+        <div>
+            <h2>Links opening a new tab are made explicit</h2>
+            <p>
+                Native links stay native, but the package adds <code>rel="noopener"</code> and a contextual hint.
+            </p>
+        </div>
+        <ul class="demo-list">
+            <li>
+                <a href="https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" target="_blank">
+                    WCAG 2.2 target size minimum
+                </a>
+            </li>
+            <li>
+                <a href="https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/a" target="_blank" a11y-sr-only-hint>
+                    MDN anchor reference
+                </a>
+            </li>
+            <li>
+                <a href="/docs/accessibility-checklist.pdf" download>
+                    Accessibility checklist PDF
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="showcase__band">
+        <div>
+            <h2>Anchors can opt into button-like target sizes</h2>
+            <p>
+                Inline text links should usually stay inline. For card actions, menu tools, or icon links,
+                opt in per anchor.
+            </p>
+        </div>
+        <div class="demo-toolbar" aria-label="Anchor target-size examples">
+            <a class="demo-chip demo-chip--link" href="/reports/q2" a11y-hit-target="@A11yTargetSize.Minimum">Open report</a>
+            <a class="demo-chip demo-chip--link" href="/reports/q2/export" a11y-hit-target="@A11yTargetSize.Enhanced">Export CSV</a>
+            <a class="demo-chip demo-chip--link" href="https://www.w3.org/WAI/" target="_blank" a11y-hit-target="@A11yTargetSize.Minimum">
+                WAI
+            </a>
+        </div>
+    </div>
+</section>
+
+<style>
+    .hero {
+        display: grid;
+        gap: 16px;
+        padding-block: 12px 24px;
+    }
+
+    .hero__eyebrow {
+        color: #526166;
+        font-size: 0.95rem;
+        font-weight: 600;
+    }
+
+    .hero h1 {
+        font-size: clamp(2rem, 3vw, 3.5rem);
+        line-height: 1.05;
+        margin: 0;
+        max-width: 14ch;
+    }
+
+    .hero__lede {
+        color: #334247;
+        font-size: 1.05rem;
+        margin: 0;
+        max-width: 62ch;
+    }
+
+    .showcase {
+        display: grid;
+        gap: 18px;
+    }
+
+    .showcase__band {
+        background: #f8faf9;
+        border: 1px solid #d7dee2;
+        border-radius: 8px;
+        display: grid;
+        gap: 18px;
+        padding: 24px;
+    }
+
+    .showcase__band h2 {
+        font-size: 1.25rem;
+        margin: 0 0 8px;
+    }
+
+    .showcase__band p {
+        color: #334247;
+        margin: 0;
+        max-width: 60ch;
+    }
+
+    .demo-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .demo-chip {
+        align-items: center;
+        background: #144d4d;
+        border: 0;
+        border-radius: 8px;
+        color: #fff;
+        display: inline-flex;
+        font-weight: 600;
+        justify-content: center;
+        min-inline-size: fit-content;
+        padding: 0.55rem 0.9rem;
+        text-decoration: none;
+    }
+
+    .demo-chip--link {
+        background: #edf4f1;
+        color: #144d4d;
+    }
+
+    .demo-list {
+        display: grid;
+        gap: 12px;
+        margin: 0;
+        padding-left: 1.25rem;
+    }
+
+    .demo-list a {
+        color: #144d4d;
+        text-decoration-thickness: 0.08em;
+        text-underline-offset: 0.18em;
+    }
+
+    code {
+        background: #edf4f1;
+        border-radius: 4px;
+        padding: 0.1rem 0.3rem;
+    }
+</style>
