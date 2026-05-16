@@ -65,6 +65,10 @@
   text-decoration: none;
 }
 
+.agency-brand:visited {
+  color: #ffffff;
+}
+
 .agency-brand__seal {
   align-items: center;
   background: #ffffff;
@@ -148,8 +152,16 @@
   text-decoration: none;
 }
 
+.site-nav__inner a:visited {
+  color: #ffffff;
+}
+
 .site-nav__inner a:hover {
   background: #ffffff;
+  color: #0d1e35;
+}
+
+.site-nav__inner a:visited:hover {
   color: #0d1e35;
 }
 
@@ -181,6 +193,10 @@
   color: #ffffff;
   text-decoration-thickness: 0.08em;
   text-underline-offset: 0.18em;
+}
+
+.site-footer a:visited {
+  color: #ffffff;
 }
 
 @media (max-width: 640px) {
