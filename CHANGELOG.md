@@ -36,6 +36,7 @@ These changes are in the repository and are intended for the next package releas
 ### Fixed
 
 - Fixed README sample markup for the enhanced target-size anchor example.
+- Fixed visited-link contrast in the sample project navigation, footer, and action links.
 
 ## [1.0.0] - 2026-05-08
 
