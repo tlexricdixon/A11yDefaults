@@ -1,172 +1,326 @@
 @{
-    ViewData["Title"] = "MVC Package Sample";
+    ViewData["Title"] = "Generic Government Agency";
 }
 
-<section class="hero">
-    <div class="hero__eyebrow">NuGet-shaped accessibility defaults for MVC</div>
-    <h1>Native Razor markup, safer defaults, less remembering.</h1>
-    <p class="hero__lede">
-        This sample shows the package enhancing normal <code>&lt;a&gt;</code>, <code>&lt;button&gt;</code>,
-        and button-like <code>&lt;input&gt;</code> elements with minimum target sizes and clearer link behavior.
-    </p>
+<section class="agency-hero" aria-labelledby="page-title">
+    <div>
+        <p class="agency-hero__eyebrow">Public services and safety information</p>
+        <h1 id="page-title">Generic Government Agency</h1>
+        <p class="agency-hero__lede">
+            Access records, public safety resources, licensing services, and agency updates from one central location.
+        </p>
+    </div>
+    <div class="agency-hero__panel" aria-label="Service status">
+        <span class="agency-hero__status">Online services available</span>
+        <strong>Current response window</strong>
+        <p>Most online requests receive an initial response within two business days.</p>
+    </div>
 </section>
 
-<section class="showcase">
-    <div class="showcase__band">
-        <div>
-            <h2>Buttons get a 24 by 24 minimum target by default</h2>
-            <p>
-                The package adds a class to buttons and button-like inputs automatically, which maps to the
-                WCAG 2.2 minimum target size baseline.
-            </p>
-        </div>
-        <div class="demo-toolbar" aria-label="Button target-size examples">
-            <button class="demo-chip" aria-label="Refresh dashboard">
-                <span aria-hidden="true">↻</span>
-            </button>
-            <button class="demo-chip">Save</button>
-            <button class="demo-chip" a11y-hit-target="@A11yTargetSize.Enhanced">Publish</button>
-            <input class="demo-chip" type="submit" value="Submit" />
-        </div>
+<section class="quick-actions" aria-labelledby="quick-actions-title">
+    <div class="section-heading">
+        <p>Popular services</p>
+        <h2 id="quick-actions-title">How can we help?</h2>
     </div>
-
-    <div class="showcase__band">
-        <div>
-            <h2>Links opening a new tab are made explicit</h2>
-            <p>
-                Native links stay native, but the package adds <code>rel="noopener"</code> and a contextual hint.
-            </p>
-        </div>
-        <ul class="demo-list">
-            <li>
-                <a href="https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" target="_blank">
-                    WCAG 2.2 target size minimum
-                </a>
-            </li>
-            <li>
-                <a href="https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/a" target="_blank" a11y-sr-only-hint>
-                    MDN anchor reference
-                </a>
-            </li>
-            <li>
-                <a href="/docs/accessibility-checklist.pdf" download>
-                    Accessibility checklist PDF
-                </a>
-            </li>
-        </ul>
+    <div class="quick-actions__grid">
+        <a class="service-button" href="#records" a11y-hit-target="@A11yTargetSize.Enhanced">
+            Request a record
+        </a>
+        <a class="service-button" href="#safety" a11y-hit-target="@A11yTargetSize.Enhanced">
+            Report a safety concern
+        </a>
+        <a class="service-button" href="#services" a11y-hit-target="@A11yTargetSize.Enhanced">
+            Renew a permit
+        </a>
+        <a class="service-button" href="#contact" a11y-hit-target="@A11yTargetSize.Enhanced">
+            Contact a district office
+        </a>
     </div>
+</section>
 
-    <div class="showcase__band">
-        <div>
-            <h2>Anchors can opt into button-like target sizes</h2>
-            <p>
-                Inline text links should usually stay inline. For card actions, menu tools, or icon links,
-                opt in per anchor.
-            </p>
-        </div>
-        <div class="demo-toolbar" aria-label="Anchor target-size examples">
-            <a class="demo-chip demo-chip--link" href="/reports/q2" a11y-hit-target="@A11yTargetSize.Minimum">Open report</a>
-            <a class="demo-chip demo-chip--link" href="/reports/q2/export" a11y-hit-target="@A11yTargetSize.Enhanced">Export CSV</a>
-            <a class="demo-chip demo-chip--link" href="https://www.w3.org/WAI/" target="_blank" a11y-hit-target="@A11yTargetSize.Minimum">
-                WAI
-            </a>
-        </div>
+<section class="agency-alert" aria-labelledby="alert-title">
+    <div>
+        <p>Agency notice</p>
+        <h2 id="alert-title">Service centers are open with expanded online options</h2>
+    </div>
+    <a href="https://www.w3.org/WAI/" target="_blank" a11y-sr-only-hint a11y-hit-target="@A11yTargetSize.Minimum">
+        Accessibility resources
+    </a>
+</section>
+
+<section class="service-sections" aria-label="Agency service areas">
+    <article class="service-card" id="services">
+        <span class="service-card__label">Services</span>
+        <h2>Licenses and permits</h2>
+        <p>Start, renew, or update agency-issued licenses and permits through guided online services.</p>
+        <input class="service-card__action" type="submit" value="Start request" />
+    </article>
+
+    <article class="service-card" id="records">
+        <span class="service-card__label">Records</span>
+        <h2>Reports and public records</h2>
+        <p>Request public records, download forms, and check the status of submitted requests.</p>
+        <a class="service-card__action" href="/docs/accessibility-checklist.pdf" download a11y-hit-target="@A11yTargetSize.Minimum">
+            Download form
+        </a>
+    </article>
+
+    <article class="service-card" id="safety">
+        <span class="service-card__label">Safety</span>
+        <h2>Public safety updates</h2>
+        <p>Find current advisories, preparedness resources, and regional safety information.</p>
+        <button class="service-card__action" type="button">View advisories</button>
+    </article>
+
+    <article class="service-card" id="contact">
+        <span class="service-card__label">Contact</span>
+        <h2>District offices</h2>
+        <p>Locate offices, hours, and contact channels for agency services across the state.</p>
+        <a class="service-card__action" href="mailto:info@example.gov" a11y-hit-target="@A11yTargetSize.Minimum">
+            Email the agency
+        </a>
+    </article>
+</section>
+
+<section class="skip-demo" aria-labelledby="skip-demo-title">
+    <div>
+        <p>Accessibility default in this sample</p>
+        <h2 id="skip-demo-title">The page header includes a skip link</h2>
+    </div>
+    <code>&lt;a a11y-skip-link a11y-skip-target="content"&gt;&lt;/a&gt;</code>
+</section>
+
+<section class="focus-demo" aria-labelledby="focus-demo-title">
+    <div>
+        <p>Keyboard focus</p>
+        <h2 id="focus-demo-title">Interactive elements get a consistent focus ring</h2>
+    </div>
+    <div class="focus-demo__row">
+        <a class="service-card__action" href="#services" a11y-hit-target="@A11yTargetSize.Minimum">Review services</a>
+        <button class="service-card__action" type="button">Check status</button>
+        <span class="focus-demo__custom" tabindex="0" role="button" a11y-focus-ring>
+            Custom focusable item
+        </span>
     </div>
 </section>
 
 <style>
-    .hero {
+    .agency-hero {
+        align-items: stretch;
+        background: #eef4f7;
+        border-block-end: 6px solid #b9d7ea;
         display: grid;
-        gap: 16px;
-        padding-block: 12px 24px;
+        gap: 24px;
+        grid-template-columns: minmax(0, 1fr);
+        margin-inline: calc(50% - 50vw);
+        padding: 40px max(24px, calc((100vw - 1100px) / 2)) 44px;
     }
 
-    .hero__eyebrow {
-        color: #526166;
-        font-size: 0.95rem;
-        font-weight: 600;
+    @@media (min-width: 800px) {
+        .agency-hero {
+            grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+        }
     }
 
-    .hero h1 {
-        font-size: clamp(2rem, 3vw, 3.5rem);
+    .agency-hero__eyebrow,
+    .section-heading p,
+    .agency-alert p,
+    .skip-demo p {
+        color: #425466;
+        font-size: 0.9rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        margin: 0 0 8px;
+        text-transform: uppercase;
+    }
+
+    .agency-hero h1 {
+        color: #13294b;
+        font-size: clamp(2.25rem, 4vw, 4rem);
         line-height: 1.05;
         margin: 0;
-        max-width: 14ch;
+        max-width: 13ch;
     }
 
-    .hero__lede {
-        color: #334247;
-        font-size: 1.05rem;
-        margin: 0;
-        max-width: 62ch;
-    }
-
-    .showcase {
-        display: grid;
-        gap: 18px;
-    }
-
-    .showcase__band {
-        background: #f8faf9;
-        border: 1px solid #d7dee2;
-        border-radius: 8px;
-        display: grid;
-        gap: 18px;
-        padding: 24px;
-    }
-
-    .showcase__band h2 {
-        font-size: 1.25rem;
-        margin: 0 0 8px;
-    }
-
-    .showcase__band p {
-        color: #334247;
-        margin: 0;
+    .agency-hero__lede {
+        color: #263b4c;
+        font-size: 1.15rem;
+        line-height: 1.55;
+        margin: 18px 0 0;
         max-width: 60ch;
     }
 
-    .demo-toolbar {
+    .agency-hero__panel {
+        background: #ffffff;
+        border: 1px solid #bfd1df;
+        border-radius: 8px;
+        display: grid;
+        gap: 10px;
+        padding: 24px;
+    }
+
+    .agency-hero__panel strong {
+        color: #13294b;
+        font-size: 1.15rem;
+    }
+
+    .agency-hero__panel p {
+        color: #425466;
+        margin: 0;
+    }
+
+    .agency-hero__status {
+        background: #d7f0df;
+        border: 1px solid #78bd8c;
+        border-radius: 999px;
+        color: #214f2b;
+        display: inline-flex;
+        font-size: 0.85rem;
+        font-weight: 700;
+        inline-size: fit-content;
+        padding: 0.35rem 0.65rem;
+    }
+
+    .quick-actions,
+    .agency-alert,
+    .service-sections,
+    .skip-demo,
+    .focus-demo {
+        margin-top: 32px;
+    }
+
+    .section-heading h2,
+    .agency-alert h2,
+    .skip-demo h2,
+    .focus-demo h2 {
+        color: #13294b;
+        font-size: 1.5rem;
+        margin: 0;
+    }
+
+    .quick-actions__grid {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        margin-top: 18px;
+    }
+
+    .service-button,
+    .service-card__action,
+    .agency-alert a {
+        align-items: center;
+        background: #164a7c;
+        border: 0;
+        border-radius: 6px;
+        color: #ffffff;
+        display: inline-flex;
+        font-weight: 700;
+        justify-content: center;
+        min-inline-size: fit-content;
+        padding: 0.75rem 1rem;
+        text-decoration: none;
+    }
+
+    .service-button:hover,
+    .service-card__action:hover,
+    .agency-alert a:hover {
+        background: #0f365d;
+    }
+
+    .agency-alert {
+        align-items: center;
+        background: #fff5d6;
+        border-inline-start: 8px solid #dca900;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        justify-content: space-between;
+        padding: 22px 24px;
+    }
+
+    .service-sections {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .service-card {
+        border: 1px solid #c7d4df;
+        border-radius: 8px;
+        display: grid;
+        gap: 12px;
+        padding: 22px;
+    }
+
+    .service-card__label {
+        color: #5c6670;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .service-card h2 {
+        color: #13294b;
+        font-size: 1.2rem;
+        margin: 0;
+    }
+
+    .service-card p {
+        color: #425466;
+        margin: 0;
+    }
+
+    .service-card__action {
+        align-self: end;
+        font-family: inherit;
+        font-size: 1rem;
+        inline-size: fit-content;
+        margin-top: 8px;
+    }
+
+    .skip-demo,
+    .focus-demo {
+        align-items: center;
+        background: #f3f7fa;
+        border: 1px solid #c7d4df;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        justify-content: space-between;
+        padding: 22px 24px;
+    }
+
+    .focus-demo {
+        align-items: flex-start;
+    }
+
+    .focus-demo__row {
         display: flex;
         flex-wrap: wrap;
         gap: 12px;
     }
 
-    .demo-chip {
+    .focus-demo__custom {
         align-items: center;
-        background: #144d4d;
-        border: 0;
-        border-radius: 8px;
-        color: #fff;
+        background: #ffffff;
+        border: 1px solid #164a7c;
+        border-radius: 6px;
+        color: #164a7c;
+        cursor: default;
         display: inline-flex;
-        font-weight: 600;
+        font-weight: 700;
         justify-content: center;
-        min-inline-size: fit-content;
-        padding: 0.55rem 0.9rem;
-        text-decoration: none;
-    }
-
-    .demo-chip--link {
-        background: #edf4f1;
-        color: #144d4d;
-    }
-
-    .demo-list {
-        display: grid;
-        gap: 12px;
-        margin: 0;
-        padding-left: 1.25rem;
-    }
-
-    .demo-list a {
-        color: #144d4d;
-        text-decoration-thickness: 0.08em;
-        text-underline-offset: 0.18em;
+        padding: 0.75rem 1rem;
     }
 
     code {
-        background: #edf4f1;
+        background: #ffffff;
+        border: 1px solid #c7d4df;
         border-radius: 4px;
-        padding: 0.1rem 0.3rem;
+        color: #13294b;
+        font-size: 0.95rem;
+        max-inline-size: 100%;
+        overflow-wrap: anywhere;
+        padding: 0.5rem 0.65rem;
     }
 </style>

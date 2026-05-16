@@ -33,6 +33,17 @@ public sealed class A11yDefaultsOptions
     public const string ScreenReaderClassName = "a11y-sr-only";
 
     /// <summary>
+    /// Default CSS class for skip links that become visible when focused.
+    /// </summary>
+    public const string SkipLinkClassName = "a11y-skip-link";
+
+    /// <summary>
+    /// Default CSS class for controls that should receive the package focus
+    /// indicator.
+    /// </summary>
+    public const string FocusRingClassName = "a11y-focus-ring";
+
+    /// <summary>
     /// Gets or sets the default target-size treatment for <c>button</c> elements.
     /// </summary>
     public A11yTargetSize ButtonTargetSize { get; set; } = A11yTargetSize.Minimum;
@@ -59,6 +70,18 @@ public sealed class A11yDefaultsOptions
     /// attribute.
     /// </summary>
     public string DownloadText { get; set; } = "downloads file";
+
+    /// <summary>
+    /// Gets or sets the default text rendered by skip links when no child content
+    /// is supplied.
+    /// </summary>
+    public string SkipLinkText { get; set; } = "Skip to main content";
+
+    /// <summary>
+    /// Gets or sets the default fragment target used by skip links when no
+    /// <c>href</c> is supplied.
+    /// </summary>
+    public string SkipLinkTarget { get; set; } = "#main";
 
     /// <summary>
     /// Gets or sets whether <c>rel="noopener"</c> is added to
@@ -91,4 +114,20 @@ public sealed class A11yDefaultsOptions
     /// Gets or sets the CSS class used for visually hidden screen-reader text.
     /// </summary>
     public string ScreenReaderClass { get; set; } = ScreenReaderClassName;
+
+    /// <summary>
+    /// Gets or sets the CSS class used for skip links.
+    /// </summary>
+    public string SkipLinkClass { get; set; } = SkipLinkClassName;
+
+    /// <summary>
+    /// Gets or sets the CSS class used for the package focus indicator.
+    /// </summary>
+    public string FocusRingClass { get; set; } = FocusRingClassName;
+
+    /// <summary>
+    /// Gets or sets whether anchors, buttons, and button-like inputs receive the
+    /// package focus indicator class automatically.
+    /// </summary>
+    public bool AddFocusRingToInteractiveElements { get; set; } = true;
 }

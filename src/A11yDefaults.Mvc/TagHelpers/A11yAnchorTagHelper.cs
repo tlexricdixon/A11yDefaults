@@ -85,6 +85,7 @@ public sealed class A11yAnchorTagHelper : TagHelper
     {
         RemovePackageAttributes(output);
         A11yTagHelperUtilities.ApplyTargetSizeClass(output, HitTarget ?? _defaults.AnchorTargetSize, _defaults);
+        A11yTagHelperUtilities.ApplyFocusRingClass(output, _defaults);
 
         if (!string.IsNullOrWhiteSpace(Label))
         {

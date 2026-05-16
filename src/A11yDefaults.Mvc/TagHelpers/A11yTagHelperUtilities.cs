@@ -36,6 +36,20 @@ internal static class A11yTagHelperUtilities
     }
 
     /// <summary>
+    /// Adds the configured focus-ring class when automatic focus styling is
+    /// enabled.
+    /// </summary>
+    /// <param name="output">The tag-helper output being modified.</param>
+    /// <param name="options">Package options containing the CSS class name and opt-in flag.</param>
+    public static void ApplyFocusRingClass(TagHelperOutput output, A11yDefaultsOptions options)
+    {
+        if (options.AddFocusRingToInteractiveElements)
+        {
+            AddCssClass(output, options.FocusRingClass);
+        }
+    }
+
+    /// <summary>
     /// Builds the parenthetical hint appended to links for new-tab and download
     /// affordances.
     /// </summary>
@@ -107,7 +121,7 @@ internal static class A11yTagHelperUtilities
     /// </summary>
     /// <param name="output">The tag-helper output being modified.</param>
     /// <param name="className">The CSS class to add.</param>
-    private static void AddCssClass(TagHelperOutput output, string className)
+    public static void AddCssClass(TagHelperOutput output, string className)
     {
         if (string.IsNullOrWhiteSpace(className))
         {

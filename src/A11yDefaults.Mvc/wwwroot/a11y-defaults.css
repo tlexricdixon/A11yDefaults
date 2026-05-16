@@ -52,6 +52,34 @@
 }
 
 /*
+ * .a11y-focus-ring
+ *
+ * Provides a consistent keyboard focus indicator for interactive elements.
+ * The outline uses system colors first so it remains visible in forced-color
+ * and high-contrast modes.
+ */
+:where(.a11y-focus-ring:focus) {
+  outline: 3px solid Highlight;
+  outline-offset: 3px;
+}
+
+:where(.a11y-focus-ring:focus:not(:focus-visible)) {
+  outline: none;
+}
+
+:where(.a11y-focus-ring:focus-visible) {
+  box-shadow: 0 0 0 2px Canvas, 0 0 0 5px Highlight;
+  outline: 3px solid Highlight;
+  outline-offset: 3px;
+}
+
+@media (forced-colors: active) {
+  :where(.a11y-focus-ring:focus-visible) {
+    box-shadow: none;
+  }
+}
+
+/*
  * .a11y-sr-only
  * 
  * Screen reader only class that visually hides content while keeping it
@@ -75,4 +103,30 @@
   position: absolute;
   white-space: nowrap;
   width: 1px;
+}
+
+/*
+ * .a11y-skip-link
+ *
+ * Keeps skip links out of the visual flow until keyboard focus reaches them,
+ * then presents a high-contrast link at the top of the viewport.
+ */
+:where(.a11y-skip-link) {
+  background: Canvas;
+  border: 2px solid currentColor;
+  color: CanvasText;
+  font-weight: 700;
+  inset-block-start: 0.75rem;
+  inset-inline-start: 0.75rem;
+  padding: 0.75rem 1rem;
+  position: fixed;
+  transform: translateY(calc(-100% - 1rem));
+  transition: transform 120ms ease-out;
+  z-index: 10000;
+}
+
+:where(.a11y-skip-link:focus, .a11y-skip-link:focus-visible) {
+  outline: 3px solid currentColor;
+  outline-offset: 3px;
+  transform: translateY(0);
 }
