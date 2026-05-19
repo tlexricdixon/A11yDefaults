@@ -11,6 +11,12 @@
 
 ## Quick start
 
+Install the package:
+
+```dotnetcli
+dotnet add package A11yDefaults.Mvc
+```
+
 Register the options:
 
 ```csharp
@@ -58,6 +64,12 @@ Then use native elements:
 - WAI guidance for links that open a new browsing context.
 
 This package is a useful baseline, not a substitute for testing real pages with keyboard, zoom, screen readers, and touch.
+
+## Package contents
+
+- Tag Helpers for anchors, buttons, and button-like inputs.
+- Static web asset stylesheet at `_content/A11yDefaults.Mvc/a11y-defaults.css`.
+- Configurable class names and hint text through `A11yDefaultsOptions`.
 
 ## License
 
