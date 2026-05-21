@@ -37,6 +37,7 @@ These changes are in the repository and are intended for the next package releas
 
 - Fixed README sample markup for the enhanced target-size anchor example.
 - Fixed visited-link contrast in the sample project navigation, footer, and action links.
+- Fixed sample header and navigation link contrast by keeping generated links tied to the sample header foreground color.
 
 ## [1.0.0] - 2026-05-08
 
