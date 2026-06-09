@@ -15,6 +15,7 @@ Release notes and package history are tracked in the repository [CHANGELOG.md](h
 ## What it does
 
 - Adds minimum target-size classes to `<button>` and button-like `<input>` elements.
+- Enhances MVC-generated anchors after `asp-controller`, `asp-action`, and related attributes produce the final `href`.
 - Renders keyboard-friendly skip links that reveal themselves on focus.
 - Adds a consistent keyboard focus indicator to enhanced interactive elements.
 - Makes `target="_blank"` links safer and clearer by adding `rel="noopener"` and a user-facing hint.
@@ -67,6 +68,12 @@ Then use native elements:
    download
    a11y-hit-target="@A11yTargetSize.Enhanced">
     Download report
+</a>
+
+<a asp-controller="Reports"
+   asp-action="Index"
+   a11y-hit-target="@A11yTargetSize.Minimum">
+    Reports
 </a>
 ```
 

@@ -25,17 +25,21 @@ These changes are in the repository and are intended for the next package releas
 - Added .NET 9 and .NET 10 target frameworks while keeping .NET 8 support.
 - Added a Generic Government Agency sample page showing the package in a more realistic public-sector layout.
 - Added AI usage disclosure language to clarify that AI tools helped during development, but no AI functionality ships in the package.
+- Added NuGet package metadata for version, project URL, repository URL, release notes, and neutral language.
 
 ### Changed
 
 - Updated package and sample project files to multi-target `net8.0`, `net9.0`, and `net10.0`.
 - Updated README examples to use Razor enum expressions for `a11y-hit-target`, such as `@A11yTargetSize.Enhanced`.
+- Updated anchor handling so MVC-generated links can receive package classes after the built-in Anchor Tag Helper produces `href`.
+- Updated class merging to preserve author class order and append package classes once.
 - Updated the sample layout to demonstrate a skip link targeting the main content region.
 - Updated smoke tests to cover skip links, focus rings, and multi-target execution.
 
 ### Fixed
 
 - Fixed README sample markup for the enhanced target-size anchor example.
+- Fixed bundled CSS comments that described the 24px target-size utility with the wrong WCAG success criterion level.
 - Fixed visited-link contrast in the sample project navigation, footer, and action links.
 - Fixed sample header and navigation link contrast by keeping generated links tied to the sample header foreground color.
 

@@ -10,7 +10,7 @@ namespace A11yDefaults.Mvc.TagHelpers;
 /// Enhances anchor elements with accessible target sizing and contextual hints for
 /// links that open new browsing contexts or trigger downloads.
 /// </summary>
-[HtmlTargetElement("a", Attributes = "href")]
+[HtmlTargetElement("a")]
 public sealed class A11yAnchorTagHelper : TagHelper
 {
     /// <summary>
@@ -84,13 +84,19 @@ public sealed class A11yAnchorTagHelper : TagHelper
     public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
     {
         RemovePackageAttributes(output);
-        A11yTagHelperUtilities.ApplyTargetSizeClass(output, HitTarget ?? _defaults.AnchorTargetSize, _defaults);
-        A11yTagHelperUtilities.ApplyFocusRingClass(output, _defaults);
 
         if (!string.IsNullOrWhiteSpace(Label))
         {
             output.Attributes.SetAttribute("aria-label", Label);
         }
+
+        if (!HasHref(output))
+        {
+            return;
+        }
+
+        A11yTagHelperUtilities.ApplyTargetSizeClass(output, HitTarget ?? _defaults.AnchorTargetSize, _defaults);
+        A11yTagHelperUtilities.ApplyFocusRingClass(output, _defaults);
 
         var hints = BuildHints(output);
         if (hints.Count == 0)
@@ -180,5 +186,16 @@ public sealed class A11yAnchorTagHelper : TagHelper
         output.Attributes.RemoveAll("a11y-suppress-hint");
         output.Attributes.RemoveAll("a11y-new-tab-text");
         output.Attributes.RemoveAll("a11y-download-text");
+    }
+
+    /// <summary>
+    /// Determines whether the final rendered anchor has an <c>href</c>, including
+    /// values generated earlier by MVC's built-in anchor tag helper.
+    /// </summary>
+    /// <param name="output">The anchor output being inspected.</param>
+    /// <returns><c>true</c> when the anchor should be treated as an interactive link.</returns>
+    private static bool HasHref(TagHelperOutput output)
+    {
+        return !string.IsNullOrWhiteSpace(output.Attributes["href"]?.Value?.ToString());
     }
 }

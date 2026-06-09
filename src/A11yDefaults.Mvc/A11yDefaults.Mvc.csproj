@@ -7,13 +7,19 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <PackageId>A11yDefaults.Mvc</PackageId>
+    <VersionPrefix>1.1.0</VersionPrefix>
     <Description>Accessibility-first Tag Helpers and CSS defaults for ASP.NET Core MVC.</Description>
     <PackageTags>accessibility;a11y;aspnetcore;mvc;razor;wcag</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/tlexricdixon/A11yDefaults</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/tlexricdixon/A11yDefaults</RepositoryUrl>
     <Authors>a11y ronin</Authors>
     <Copyright>Copyright (c) 2026 tlex.dev</Copyright>
     <RepositoryType>git</RepositoryType>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>Improves MVC-generated anchor support, skip-link and focus-ring defaults, and package documentation.</PackageReleaseNotes>
+    <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>

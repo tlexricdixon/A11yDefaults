@@ -128,14 +128,13 @@ internal static class A11yTagHelperUtilities
             return;
         }
 
-        var existingClasses = output.Attributes["class"]?.Value?.ToString();
-        var classes = new HashSet<string>(
-            existingClasses?
-                .Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-                ?? [],
-            StringComparer.OrdinalIgnoreCase);
+        var classes = Tokenize(output.Attributes["class"]?.Value?.ToString());
 
-        classes.Add(className);
+        if (!classes.Contains(className, StringComparer.OrdinalIgnoreCase))
+        {
+            classes.Add(className);
+        }
+
         output.Attributes.SetAttribute("class", string.Join(" ", classes));
     }
 }

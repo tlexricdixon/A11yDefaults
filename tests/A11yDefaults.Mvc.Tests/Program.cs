@@ -19,7 +19,10 @@ internal static class SmokeTests
         AppliesMinimumTargetClassToButtons();
         AppliesEnhancedTargetClassToInputs();
         await AppliesFocusRingClassToAnchors();
+        await EnhancesAnchorsWithGeneratedHref();
+        await LeavesPlaceholderAnchorsUnstyled();
         await CanDisableAutomaticFocusRingClasses();
+        PreservesAuthorClassOrderWhenAddingClasses();
     }
 
     private static async Task AddsNoopenerAndHintToBlankTargets()
@@ -155,6 +158,47 @@ internal static class SmokeTests
         AssertContains(output.Attributes["class"]?.Value?.ToString(), "a11y-focus-ring", "anchors should get the focus-ring class");
     }
 
+    private static async Task EnhancesAnchorsWithGeneratedHref()
+    {
+        var helper = new A11yAnchorTagHelper(Options.Create(new A11yDefaultsOptions()))
+        {
+            HitTarget = A11yTargetSize.Enhanced
+        };
+
+        var output = CreateOutput(
+            "a",
+            "Generated report link",
+            new TagHelperAttribute("href", "/reports"),
+            new TagHelperAttribute("a11y-hit-target", A11yTargetSize.Enhanced));
+
+        await helper.ProcessAsync(CreateContext(), output);
+
+        AssertContains(output.Attributes["class"]?.Value?.ToString(), "a11y-target-enhanced", "anchors should be enhanced after MVC generates href");
+        AssertContains(output.Attributes["class"]?.Value?.ToString(), "a11y-focus-ring", "generated anchors should get the focus-ring class");
+        AssertFalse(output.Attributes.ContainsName("a11y-hit-target"), "generated anchors should remove authoring-only attributes");
+    }
+
+    private static async Task LeavesPlaceholderAnchorsUnstyled()
+    {
+        var helper = new A11yAnchorTagHelper(Options.Create(new A11yDefaultsOptions()))
+        {
+            HitTarget = A11yTargetSize.Enhanced,
+            Label = "Placeholder"
+        };
+
+        var output = CreateOutput(
+            "a",
+            "Placeholder",
+            new TagHelperAttribute("class", "placeholder"),
+            new TagHelperAttribute("a11y-hit-target", A11yTargetSize.Enhanced));
+
+        await helper.ProcessAsync(CreateContext(), output);
+
+        AssertEqual("placeholder", output.Attributes["class"]?.Value?.ToString(), "anchors without href should preserve author classes without interactive styling");
+        AssertEqual("Placeholder", output.Attributes["aria-label"]?.Value?.ToString(), "anchors without href should still honor explicit labels");
+        AssertFalse(output.Attributes.ContainsName("a11y-hit-target"), "placeholder anchors should remove authoring-only attributes");
+    }
+
     private static void AppliesFocusRingClassToCustomElements()
     {
         var helper = new A11yFocusRingTagHelper(Options.Create(new A11yDefaultsOptions()));
@@ -186,6 +230,22 @@ internal static class SmokeTests
         await helper.ProcessAsync(CreateContext(), output);
 
         AssertNotContains(output.Attributes["class"]?.Value?.ToString(), "a11y-focus-ring", "automatic focus-ring classes should be configurable");
+    }
+
+    private static void PreservesAuthorClassOrderWhenAddingClasses()
+    {
+        var helper = new A11yButtonTagHelper(Options.Create(new A11yDefaultsOptions()));
+        var output = CreateOutput(
+            "button",
+            "Save",
+            new TagHelperAttribute("class", "btn primary btn"));
+
+        helper.Process(CreateContext(), output);
+
+        AssertEqual(
+            "btn primary a11y-target-min a11y-focus-ring",
+            output.Attributes["class"]?.Value?.ToString(),
+            "class helpers should preserve author class order and append package classes once");
     }
 
     private static TagHelperContext CreateContext()
