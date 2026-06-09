@@ -54,6 +54,7 @@ public sealed class A11yButtonTagHelper : TagHelper
         output.Attributes.RemoveAll("a11y-label");
 
         A11yTagHelperUtilities.ApplyTargetSizeClass(output, HitTarget ?? _defaults.ButtonTargetSize, _defaults);
+        A11yTagHelperUtilities.ApplyFocusRingClass(output, _defaults);
 
         if (!string.IsNullOrWhiteSpace(Label))
         {

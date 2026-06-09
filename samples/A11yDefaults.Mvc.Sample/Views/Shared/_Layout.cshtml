@@ -9,30 +9,56 @@
     <link rel="stylesheet" href="~/A11yDefaults.Mvc.Sample.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="site-nav">
+    <a a11y-skip-link a11y-skip-target="content"></a>
+    <header class="agency-header">
+        <div class="official-banner">
+            <div class="official-banner__inner">
+                <span aria-hidden="true">US</span>
+                <p>An official website of a generic government organization</p>
+            </div>
+        </div>
+
+        <div class="agency-masthead">
+            <div class="agency-masthead__inner">
+                <a class="agency-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <span class="agency-brand__seal" aria-hidden="true">GGA</span>
+                    <span>
+                        <span class="agency-brand__kicker">State of Accessibility</span>
+                        <span class="agency-brand__name">Generic Government Agency</span>
+                    </span>
+                </a>
+                <form class="agency-search" role="search">
+                    <label class="a11y-sr-only" for="agency-search">Search Generic Government Agency</label>
+                    <input id="agency-search" name="q" type="search" placeholder="Search" />
+                    <button type="submit" a11y-hit-target="@A11yTargetSize.Minimum">Search</button>
+                </form>
+            </div>
+        </div>
+
+        <nav class="site-nav" aria-label="Primary navigation">
             <div class="site-nav__inner">
-                <a class="site-nav__brand" asp-area="" asp-controller="Home" asp-action="Index">A11yDefaults.Mvc</a>
-                <div class="site-nav__links">
-                    <a asp-area="" asp-controller="Home" asp-action="Index">Sample</a>
-                    <a href="https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" target="_blank">
-                        WCAG target size
-                    </a>
-                </div>
+                <a asp-area="" asp-controller="Home" asp-action="Index" a11y-hit-target="@A11yTargetSize.Minimum">Home</a>
+                <a href="#services" a11y-hit-target="@A11yTargetSize.Minimum">Services</a>
+                <a href="#records" a11y-hit-target="@A11yTargetSize.Minimum">Records</a>
+                <a href="#safety" a11y-hit-target="@A11yTargetSize.Minimum">Public Safety</a>
+                <a href="#contact" a11y-hit-target="@A11yTargetSize.Minimum">Contact</a>
+                <a href="https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" target="_blank" a11y-sr-only-hint a11y-hit-target="@A11yTargetSize.Minimum">
+                    WCAG Guidance
+                </a>
             </div>
         </nav>
     </header>
     <div class="page-shell">
-        <main role="main" class="page-shell__content">
+        <main id="content" role="main" class="page-shell__content" tabindex="-1">
             @RenderBody()
         </main>
     </div>
 
     <footer class="site-footer">
         <div class="site-footer__inner">
-            <span>&copy; 2026 A11yDefaults.Mvc</span>
+            <span>&copy; 2026 Generic Government Agency</span>
             <a href="https://www.w3.org/WAI/" target="_blank" a11y-sr-only-hint>
-                W3C WAI
+                Accessibility guidance
             </a>
         </div>
     </footer>

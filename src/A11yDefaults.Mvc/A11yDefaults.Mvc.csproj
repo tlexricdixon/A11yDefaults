@@ -1,26 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <PackageId>A11yDefaults.Mvc</PackageId>
-    <Version>1.0.0</Version>
+    <VersionPrefix>1.1.0</VersionPrefix>
     <Description>Accessibility-first Tag Helpers and CSS defaults for ASP.NET Core MVC.</Description>
     <PackageTags>accessibility;a11y;aspnetcore;mvc;razor;wcag</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/tlexricdixon/A11yDefaults</PackageProjectUrl>
-    <PackageReleaseNotes>Initial release with accessible target-size defaults for anchors, buttons, and button-like inputs; safer target=_blank links; contextual link hints; and bundled CSS utilities.</PackageReleaseNotes>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <RepositoryUrl>https://github.com/tlexricdixon/A11yDefaults</RepositoryUrl>
     <Authors>a11y ronin</Authors>
     <Copyright>Copyright (c) 2026 tlex.dev</Copyright>
     <RepositoryUrl>https://github.com/tlexricdixon/A11yDefaults.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>Improves MVC-generated anchor support, skip-link and focus-ring defaults, and package documentation.</PackageReleaseNotes>
+    <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>

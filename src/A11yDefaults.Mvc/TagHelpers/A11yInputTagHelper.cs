@@ -70,6 +70,7 @@ public sealed class A11yInputTagHelper : TagHelper
         }
 
         A11yTagHelperUtilities.ApplyTargetSizeClass(output, HitTarget ?? _defaults.InputTargetSize, _defaults);
+        A11yTagHelperUtilities.ApplyFocusRingClass(output, _defaults);
 
         if (!string.IsNullOrWhiteSpace(Label))
         {
