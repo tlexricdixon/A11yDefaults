@@ -22,6 +22,8 @@ These changes are in the repository and are intended for the next package releas
 - Added configurable focus-ring defaults:
   - `FocusRingClass`
   - `AddFocusRingToInteractiveElements`
+- Added configurable link hint visibility through `LinkHintVisibility` and the `A11yLinkHintVisibility` enum.
+- Added per-link hint visibility overrides through `a11y-hint-visibility`.
 - Added .NET 9 and .NET 10 target frameworks while keeping .NET 8 support.
 - Added a Generic Government Agency sample page showing the package in a more realistic public-sector layout.
 - Added AI usage disclosure language to clarify that AI tools helped during development, but no AI functionality ships in the package.

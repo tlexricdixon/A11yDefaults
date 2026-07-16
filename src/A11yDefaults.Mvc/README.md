@@ -8,6 +8,18 @@
 - .NET 9
 - .NET 10
 
+## Dependencies
+
+`A11yDefaults.Mvc` requires:
+
+- **ASP.NET Core MVC** (or Razor Pages)
+- No CSS framework is required. A11yDefaults components use package-owned `a11y-*` classes.
+
+The package provides:
+- WCAG-compliant accessibility utility classes (`a11y-target-min`, `a11y-target-enhanced`, `a11y-focus-ring`, etc.)
+- Tag Helpers for semantic HTML enhancements
+- No additional runtime dependencies beyond ASP.NET Core
+
 ## Releases
 
 Release notes and package history are tracked in the repository [CHANGELOG.md](https://github.com/tlexricdixon/A11yDefaults/blob/master/CHANGELOG.md).
@@ -31,9 +43,9 @@ builder.Services.AddA11yDefaults(options =>
 {
     options.ButtonTargetSize = A11yTargetSize.Minimum;
     options.AddFocusRingToInteractiveElements = true;
+    options.LinkHintVisibility = A11yLinkHintVisibility.ScreenReaderOnly;
 });
 ```
-
 Enable the Tag Helpers:
 
 ```cshtml
@@ -80,6 +92,12 @@ Then use native elements:
 Use the Razor enum expression form for target-size overrides:
 `a11y-hit-target="@A11yTargetSize.Enhanced"` or
 `a11y-hit-target="@A11yTargetSize.Minimum"`.
+
+Generated link hints are visible by default. For link-heavy pages, set
+`options.LinkHintVisibility = A11yLinkHintVisibility.ScreenReaderOnly`.
+Individual links can override the default with
+`a11y-hint-visibility="@A11yLinkHintVisibility.Visible"` or keep using the
+`a11y-sr-only-hint` shorthand.
 
 Anchors, buttons, and button-like inputs receive the package focus-ring class by
 default. For custom focusable elements, opt in directly:

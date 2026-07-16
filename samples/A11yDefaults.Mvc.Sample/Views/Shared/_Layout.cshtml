@@ -4,8 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - A11yDefaults.Mvc</title>
-    <link rel="stylesheet" href="~/_content/A11yDefaults.Mvc/a11y-defaults.css" asp-append-version="true" />
+    <!-- Bootstrap loads first -->
+    <link href="~/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <!-- Your custom site styles load last -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <!-- A11yDefaults components use their own a11y-* classes and do not depend on Bootstrap button classes. -->
+    <link rel="stylesheet" href="~/_content/A11yDefaults.Mvc/a11y-defaults.css" asp-append-version="true" />
+
     <link rel="stylesheet" href="~/A11yDefaults.Mvc.Sample.styles.css" asp-append-version="true" />
 </head>
 <body>
@@ -42,7 +47,7 @@
                 <a href="#records" a11y-hit-target="@A11yTargetSize.Minimum">Records</a>
                 <a href="#safety" a11y-hit-target="@A11yTargetSize.Minimum">Public Safety</a>
                 <a href="#contact" a11y-hit-target="@A11yTargetSize.Minimum">Contact</a>
-                <a href="https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" target="_blank" a11y-sr-only-hint a11y-hit-target="@A11yTargetSize.Minimum">
+                <a href="https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" target="_blank" a11y-hit-target="@A11yTargetSize.Minimum">
                     WCAG Guidance
                 </a>
             </div>
@@ -57,11 +62,12 @@
     <footer class="site-footer">
         <div class="site-footer__inner">
             <span>&copy; 2026 Generic Government Agency</span>
-            <a href="https://www.w3.org/WAI/" target="_blank" a11y-sr-only-hint>
+            <a href="https://www.w3.org/WAI/" target="_blank">
                 Accessibility guidance
             </a>
         </div>
     </footer>
     @await RenderSectionAsync("Scripts", required: false)
+    <script src="~/bootstrap/js/bootstrap.bundle.js"></script>
 </body>
 </html>
