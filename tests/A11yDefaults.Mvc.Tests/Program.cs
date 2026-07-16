@@ -12,11 +12,15 @@ internal static class SmokeTests
     {
         await AddsNoopenerAndHintToBlankTargets();
         await HonorsScreenReaderOnlyHints();
+        await HonorsDefaultScreenReaderOnlyHintVisibility();
+        await HonorsPerLinkVisibleHintVisibility();
         await RendersDefaultSkipLink();
         await HonorsSkipLinkOverrides();
         await PreservesSkipLinkHrefAndContent();
         AppliesFocusRingClassToCustomElements();
-        AppliesMinimumTargetClassToButtons();
+        AppliesMinimumTargetClassToA11yButtons();
+        RendersA11yButtonAsPrimaryNativeButton();
+        HonorsA11yButtonTargetSizes();
         AppliesEnhancedTargetClassToInputs();
         await AppliesFocusRingClassToAnchors();
         await EnhancesAnchorsWithGeneratedHref();
@@ -67,6 +71,49 @@ internal static class SmokeTests
         AssertContains(output.Content.GetContent(), "a11y-sr-only", "sr-only hint class should be rendered");
     }
 
+    private static async Task HonorsDefaultScreenReaderOnlyHintVisibility()
+    {
+        var helper = new A11yAnchorTagHelper(Options.Create(new A11yDefaultsOptions
+        {
+            LinkHintVisibility = A11yLinkHintVisibility.ScreenReaderOnly
+        }));
+
+        var output = CreateOutput(
+            "a",
+            "MDN anchor reference",
+            new TagHelperAttribute("href", "https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/a"),
+            new TagHelperAttribute("target", "_blank"));
+
+        await helper.ProcessAsync(CreateContext(), output);
+
+        AssertContains(output.Content.GetContent(), "a11y-sr-only", "default sr-only hint class should be rendered");
+        AssertNotContains(output.Content.GetContent(), "a11y-link-hint", "visible hint class should not be rendered when defaults are sr-only");
+    }
+
+    private static async Task HonorsPerLinkVisibleHintVisibility()
+    {
+        var helper = new A11yAnchorTagHelper(Options.Create(new A11yDefaultsOptions
+        {
+            LinkHintVisibility = A11yLinkHintVisibility.ScreenReaderOnly
+        }))
+        {
+            HintVisibility = A11yLinkHintVisibility.Visible
+        };
+
+        var output = CreateOutput(
+            "a",
+            "WAI guidance",
+            new TagHelperAttribute("href", "https://www.w3.org/WAI/"),
+            new TagHelperAttribute("target", "_blank"),
+            new TagHelperAttribute("a11y-hint-visibility", A11yLinkHintVisibility.Visible));
+
+        await helper.ProcessAsync(CreateContext(), output);
+
+        AssertContains(output.Content.GetContent(), "a11y-link-hint", "per-link visible hint class should be rendered");
+        AssertNotContains(output.Content.GetContent(), "a11y-sr-only", "sr-only hint class should not be rendered when a link opts into visible hints");
+        AssertFalse(output.Attributes.ContainsName("a11y-hint-visibility"), "hint visibility attribute should be removed from rendered anchors");
+    }
+
     private static async Task RendersDefaultSkipLink()
     {
         var helper = new A11ySkipLinkTagHelper(Options.Create(new A11yDefaultsOptions()));
@@ -115,15 +162,40 @@ internal static class SmokeTests
         AssertEqual("Skip navigation", output.Content.GetContent(), "skip links should preserve author-provided child content");
     }
 
-    private static void AppliesMinimumTargetClassToButtons()
+    private static void AppliesMinimumTargetClassToA11yButtons()
     {
         var helper = new A11yButtonTagHelper(Options.Create(new A11yDefaultsOptions()));
-        var output = CreateOutput("button", null);
+        var output = CreateOutput("a11y-button", null);
 
         helper.Process(CreateContext(), output);
 
         AssertContains(output.Attributes["class"]?.Value?.ToString(), "a11y-target-min", "buttons should get the minimum target class");
         AssertContains(output.Attributes["class"]?.Value?.ToString(), "a11y-focus-ring", "buttons should get the focus-ring class");
+    }
+
+    private static void RendersA11yButtonAsPrimaryNativeButton()
+    {
+        var helper = new A11yButtonTagHelper(Options.Create(new A11yDefaultsOptions()));
+        var output = CreateOutput("a11y-button", "Save");
+
+        helper.Process(CreateContext(), output);
+
+        AssertEqual("button", output.TagName, "a11y-button should render with native button semantics");
+        AssertContains(output.Attributes["class"]?.Value?.ToString(), "a11y-btn", "a11y-button should use component-owned styling");
+        AssertContains(output.Attributes["class"]?.Value?.ToString(), "a11y-btn-primary", "a11y-button should default to the primary variant");
+    }
+
+    private static void HonorsA11yButtonTargetSizes()
+    {
+        var helper = new A11yButtonTagHelper(Options.Create(new A11yDefaultsOptions()))
+        {
+            HitTarget = A11yTargetSize.Enhanced
+        };
+        var output = CreateOutput("a11y-button", "Enhanced");
+
+        helper.Process(CreateContext(), output);
+
+        AssertContains(output.Attributes["class"]?.Value?.ToString(), "a11y-target-enhanced", "a11y-button should honor enhanced target sizing");
     }
 
     private static void AppliesEnhancedTargetClassToInputs()
@@ -236,14 +308,14 @@ internal static class SmokeTests
     {
         var helper = new A11yButtonTagHelper(Options.Create(new A11yDefaultsOptions()));
         var output = CreateOutput(
-            "button",
+            "a11y-button",
             "Save",
             new TagHelperAttribute("class", "btn primary btn"));
 
         helper.Process(CreateContext(), output);
 
         AssertEqual(
-            "btn primary a11y-target-min a11y-focus-ring",
+            "btn primary a11y-btn a11y-btn-primary a11y-target-min a11y-focus-ring",
             output.Attributes["class"]?.Value?.ToString(),
             "class helpers should preserve author class order and append package classes once");
     }

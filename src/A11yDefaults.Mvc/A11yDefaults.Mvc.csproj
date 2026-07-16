@@ -18,8 +18,9 @@
     <RepositoryUrl>https://github.com/tlexricdixon/A11yDefaults.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>Improves MVC-generated anchor support, skip-link and focus-ring defaults, and package documentation.</PackageReleaseNotes>
+    <PackageReleaseNotes>Improves MVC-generated anchor support, skip-link and focus-ring defaults, configurable link hint visibility, and package documentation.</PackageReleaseNotes>
     <NeutralLanguage>en-US</NeutralLanguage>
+    <Summary>Accessibility-first Tag Helpers and self-contained CSS utilities for ASP.NET Core MVC and Razor Pages.</Summary>
   </PropertyGroup>
 
   <ItemGroup>

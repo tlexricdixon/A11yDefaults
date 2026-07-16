@@ -1,7 +1,3 @@
-:host {
-  display: block;
-}
-
 .official-banner {
   background: #eef1f4;
   border-bottom: 1px solid #cfd8df;
@@ -196,13 +192,13 @@
   min-height: 76px;
 }
 
-.site-footer a {
+.site-footer ::deep a {
   color: #ffffff;
   text-decoration-thickness: 0.08em;
   text-underline-offset: 0.18em;
 }
 
-.site-footer a:visited {
+.site-footer ::deep a:visited {
   color: #ffffff;
 }
 

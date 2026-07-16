@@ -72,6 +72,12 @@ public sealed class A11yDefaultsOptions
     public string DownloadText { get; set; } = "downloads file";
 
     /// <summary>
+    /// Gets or sets whether generated link hints are visible or only available
+    /// to assistive technology by default.
+    /// </summary>
+    public A11yLinkHintVisibility LinkHintVisibility { get; set; } = A11yLinkHintVisibility.Visible;
+
+    /// <summary>
     /// Gets or sets the default text rendered by skip links when no child content
     /// is supplied.
     /// </summary>

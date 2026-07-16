@@ -13,8 +13,8 @@
  * and for users with motor impairments.
  */
 :where(.a11y-target-min) {
-  min-inline-size: 24px;
-  min-block-size: 24px;
+  min-inline-size: 24px !important;
+  min-block-size: 24px !important;
 }
 
 /*
@@ -25,8 +25,8 @@
  * or those using touch devices.
  */
 :where(.a11y-target-enhanced) {
-  min-inline-size: 44px;
-  min-block-size: 44px;
+  min-inline-size: 44px !important;
+  min-block-size: 44px !important;
 }
 
 /*
@@ -36,7 +36,10 @@
  * promptly without changing target sizing or focus behavior.
  */
 :where(.a11y-target-min, .a11y-target-enhanced) {
-  touch-action: manipulation;
+    touch-action: manipulation;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /*
@@ -128,4 +131,110 @@
   outline: 3px solid currentColor;
   outline-offset: 3px;
   transform: translateY(0);
+}
+
+/*
+ * A11y button component
+ *
+ * These selectors intentionally do not use :where(). The component needs enough
+ * specificity to remain visually self-contained when a host also loads Bootstrap.
+ */
+.a11y-btn {
+    --a11y-btn-color: #fff;
+    --a11y-btn-bg: #0d6efd;
+    --a11y-btn-border: #0d6efd;
+    --a11y-btn-hover-bg: #0b5ed7;
+    --a11y-btn-hover-border: #0a58ca;
+    --a11y-btn-active-bg: #0a58ca;
+    --a11y-btn-active-border: #0a53be;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0;
+    min-block-size: 32px;
+    min-inline-size: 32px;
+    padding: 0 0.75rem;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--a11y-btn-color);
+    text-align: center;
+    text-decoration: none;
+    text-transform: none;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    appearance: none;
+    background-color: var(--a11y-btn-bg);
+    border: 1px solid var(--a11y-btn-border);
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    box-sizing: border-box;
+}
+
+.a11y-btn:hover:not(:disabled) {
+    color: var(--a11y-btn-color);
+    background-color: var(--a11y-btn-hover-bg);
+    border-color: var(--a11y-btn-hover-border);
+}
+
+.a11y-btn:active:not(:disabled) {
+    color: var(--a11y-btn-color);
+    background-color: var(--a11y-btn-active-bg);
+    border-color: var(--a11y-btn-active-border);
+}
+
+.a11y-btn:disabled,
+.a11y-btn[aria-disabled="true"] {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+/* The component's standard visual size is 32px even though its AA target floor is 24px. */
+.a11y-btn.a11y-target-min {
+    min-block-size: 32px !important;
+    min-inline-size: 32px !important;
+}
+
+.a11y-btn.a11y-target-enhanced {
+    min-block-size: 44px !important;
+    min-inline-size: 44px !important;
+}
+
+.a11y-btn.a11y-btn-sm {
+    min-block-size: 24px !important;
+    min-inline-size: 24px !important;
+    padding: 0 0.5rem;
+    font-size: 0.875rem;
+    border-radius: 0.2rem;
+}
+
+.a11y-btn.a11y-btn-lg {
+    min-block-size: 48px !important;
+    min-inline-size: 48px !important;
+    padding: 0 1rem;
+    font-size: 1.25rem;
+    border-radius: 0.3rem;
+}
+
+.a11y-btn-secondary { --a11y-btn-bg: #6c757d; --a11y-btn-border: #6c757d; --a11y-btn-hover-bg: #5c636a; --a11y-btn-hover-border: #565e64; --a11y-btn-active-bg: #565e64; --a11y-btn-active-border: #51585e; }
+.a11y-btn-success { --a11y-btn-bg: #198754; --a11y-btn-border: #198754; --a11y-btn-hover-bg: #157347; --a11y-btn-hover-border: #146c43; --a11y-btn-active-bg: #146c43; --a11y-btn-active-border: #13653f; }
+.a11y-btn-danger { --a11y-btn-bg: #dc3545; --a11y-btn-border: #dc3545; --a11y-btn-hover-bg: #bb2d3b; --a11y-btn-hover-border: #b02a37; --a11y-btn-active-bg: #b02a37; --a11y-btn-active-border: #a52834; }
+.a11y-btn-warning { --a11y-btn-color: #000; --a11y-btn-bg: #ffc107; --a11y-btn-border: #ffc107; --a11y-btn-hover-bg: #ffca2c; --a11y-btn-hover-border: #ffc720; --a11y-btn-active-bg: #ffcd39; --a11y-btn-active-border: #ffc720; }
+.a11y-btn-info { --a11y-btn-color: #000; --a11y-btn-bg: #0dcaf0; --a11y-btn-border: #0dcaf0; --a11y-btn-hover-bg: #31d2f2; --a11y-btn-hover-border: #25cff2; --a11y-btn-active-bg: #3dd5f3; --a11y-btn-active-border: #25cff2; }
+.a11y-btn-light { --a11y-btn-color: #000; --a11y-btn-bg: #f8f9fa; --a11y-btn-border: #f8f9fa; --a11y-btn-hover-bg: #d3d4d5; --a11y-btn-hover-border: #c6c7c8; --a11y-btn-active-bg: #c6c7c8; --a11y-btn-active-border: #babbbc; }
+.a11y-btn-dark { --a11y-btn-bg: #212529; --a11y-btn-border: #212529; --a11y-btn-hover-bg: #424649; --a11y-btn-hover-border: #373b3e; --a11y-btn-active-bg: #4d5154; --a11y-btn-active-border: #373b3e; }
+
+.a11y-btn-outline-primary { --a11y-btn-color: #0d6efd; --a11y-btn-bg: transparent; --a11y-btn-border: #0d6efd; --a11y-btn-hover-bg: #0d6efd; --a11y-btn-hover-border: #0d6efd; --a11y-btn-active-bg: #0a58ca; --a11y-btn-active-border: #0a53be; }
+.a11y-btn-outline-secondary { --a11y-btn-color: #6c757d; --a11y-btn-bg: transparent; --a11y-btn-border: #6c757d; --a11y-btn-hover-bg: #6c757d; --a11y-btn-hover-border: #6c757d; --a11y-btn-active-bg: #565e64; --a11y-btn-active-border: #51585e; }
+.a11y-btn-outline-success { --a11y-btn-color: #198754; --a11y-btn-bg: transparent; --a11y-btn-border: #198754; --a11y-btn-hover-bg: #198754; --a11y-btn-hover-border: #198754; --a11y-btn-active-bg: #146c43; --a11y-btn-active-border: #13653f; }
+.a11y-btn-outline-danger { --a11y-btn-color: #dc3545; --a11y-btn-bg: transparent; --a11y-btn-border: #dc3545; --a11y-btn-hover-bg: #dc3545; --a11y-btn-hover-border: #dc3545; --a11y-btn-active-bg: #b02a37; --a11y-btn-active-border: #a52834; }
+
+.a11y-btn-outline-primary:hover:not(:disabled), .a11y-btn-outline-primary:active:not(:disabled),
+.a11y-btn-outline-secondary:hover:not(:disabled), .a11y-btn-outline-secondary:active:not(:disabled),
+.a11y-btn-outline-success:hover:not(:disabled), .a11y-btn-outline-success:active:not(:disabled),
+.a11y-btn-outline-danger:hover:not(:disabled), .a11y-btn-outline-danger:active:not(:disabled) {
+    color: #fff;
 }
