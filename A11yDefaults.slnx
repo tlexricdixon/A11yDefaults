@@ -1,8 +1,10 @@
 <Solution>
   <Folder Name="/samples/">
+    <Project Path="samples/A11yDefaultsPiranha/A11yDefaultsPiranha.csproj" Id="62c470de-e25b-41ce-b9b8-e17dccb44e07" />
     <Project Path="samples/A11yDefaults.Mvc.Sample/A11yDefaults.Mvc.Sample.csproj" />
   </Folder>
   <Folder Name="/src/">
+    <Project Path="src/A11yDefaultsPiranhaModule/A11yDefaultsPiranhaModule.csproj" Id="3f961435-0ded-424c-8b80-67d853784487" />
     <Project Path="src/A11yDefaults.Mvc/A11yDefaults.Mvc.csproj" />
   </Folder>
   <Folder Name="/tests/">

@@ -1,6 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
+    <PackageReference Include="AngleSharp" Version="0.17.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\src\A11yDefaults.Mvc\A11yDefaults.Mvc.csproj" />
   </ItemGroup>
 
