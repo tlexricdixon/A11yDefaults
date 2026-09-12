@@ -15,6 +15,7 @@
     <PackageProjectUrl>https://github.com/tlexricdixon/A11yDefaults</PackageProjectUrl>
     <Authors>a11y ronin</Authors>
     <Copyright>Copyright (c) 2026 tlex.dev</Copyright>
+    <RepositoryUrl>https://github.com/tlexricdixon/A11yDefaults.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>Improves MVC-generated anchor support, skip-link and focus-ring defaults, configurable link hint visibility, and package documentation.</PackageReleaseNotes>

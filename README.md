@@ -1,6 +1,6 @@
-# MVC Package Direction
+# A11yDefaults
 
-This folder contains the ASP.NET Core MVC version of the accessibility-defaults idea.
+Accessibility-first defaults for ASP.NET Core MVC.
 
 ## Supported frameworks
 
@@ -17,6 +17,12 @@ The MVC package targets .NET 8, .NET 9, and .NET 10.
 Release notes and package history are tracked in [CHANGELOG.md](CHANGELOG.md).
 
 ## Why this shape
+
+```dotnetcli
+dotnet add package A11yDefaults.Mvc
+```
+
+## Why MVC Tag Helpers
 
 For MVC work, the most natural package is:
 

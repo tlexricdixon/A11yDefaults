@@ -36,6 +36,12 @@ Release notes and package history are tracked in the repository [CHANGELOG.md](h
 
 ## Quick start
 
+Install the package:
+
+```dotnetcli
+dotnet add package A11yDefaults.Mvc
+```
+
 Register the options:
 
 ```csharp
