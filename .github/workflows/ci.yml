@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore A11yDefaults.slnx
+
+      - name: Build
+        run: dotnet build A11yDefaults.slnx --configuration Release --no-restore
+
+      - name: Run accessibility test harness
+        run: dotnet run --project tests/A11yDefaults.Mvc.Tests/A11yDefaults.Mvc.Tests.csproj --configuration Release --no-build
