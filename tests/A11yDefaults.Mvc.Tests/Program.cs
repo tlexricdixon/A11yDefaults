@@ -10,10 +10,8 @@ internal static class SmokeTests
 {
     public static async Task RunAsync()
     {
-        await AddsNoopenerAndHintToBlankTargets();
-        await HonorsScreenReaderOnlyHints();
-        await HonorsDefaultScreenReaderOnlyHintVisibility();
-        await HonorsPerLinkVisibleHintVisibility();
+        await AddsNoopenerAndAccessibleHintToBlankTargets();
+        await AddsAccessibleHintWithoutChangingVisibleText();
         await RendersDefaultSkipLink();
         await HonorsSkipLinkOverrides();
         await PreservesSkipLinkHrefAndContent();
@@ -29,7 +27,7 @@ internal static class SmokeTests
         //PreservesAuthorClassOrderWhenAddingClasses();
     }
 
-    private static async Task AddsNoopenerAndHintToBlankTargets()
+    private static async Task AddsNoopenerAndAccessibleHintToBlankTargets()
     {
         var helper = new A11yAnchorTagHelper(Options.Create(new A11yDefaultsOptions()))
         {
@@ -45,20 +43,25 @@ internal static class SmokeTests
 
         await helper.ProcessAsync(CreateContext(), output);
 
-        AssertEqual("nofollow noopener", output.Attributes["rel"]?.Value?.ToString(), "blank targets should include noopener");
-        AssertNotContains(
-     output.Content.GetContent(),
-     "opens in new tab",
-     "new-tab hint should not be rendered as visible text");
+        AssertEqual(
+            "nofollow noopener",
+            output.Attributes["rel"]?.Value?.ToString(),
+            "blank targets should include noopener");
+
+        AssertEqual(
+            "WCAG target size (opens in new tab)",
+            output.Attributes["aria-label"]?.Value?.ToString(),
+            "aria-label should include the new-tab hint");
+
+        AssertEqual(
+            "WCAG target size",
+            output.Content.GetContent(),
+            "visible link text should remain unchanged");
     }
 
-    private static async Task HonorsScreenReaderOnlyHints()
+    private static async Task AddsAccessibleHintWithoutChangingVisibleText()
     {
-        var helper = new A11yAnchorTagHelper(
-            Options.Create(new A11yDefaultsOptions()))
-        {
-            ScreenReaderOnlyHint = true
-        };
+        var helper = new A11yAnchorTagHelper(Options.Create(new A11yDefaultsOptions()));
 
         var output = CreateOutput(
             "a",
@@ -79,46 +82,11 @@ internal static class SmokeTests
             "MDN anchor reference",
             output.Content.GetContent(),
             "visible link text should remain unchanged");
-    }
 
-    private static async Task HonorsDefaultScreenReaderOnlyHintVisibility()
-    {
-        var helper = new A11yAnchorTagHelper(Options.Create(new A11yDefaultsOptions
-        {
-            LinkHintVisibility = A11yLinkHintVisibility.ScreenReaderOnly
-        }));
-
-        var output = CreateOutput(
-            "a",
-            "MDN anchor reference",
-            new TagHelperAttribute("href", "https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/a"),
-            new TagHelperAttribute("target", "_blank"));
-
-        await helper.ProcessAsync(CreateContext(), output);
-
-        AssertContains(output.Content.GetContent(), "a11y-sr-only", "default sr-only hint class should be rendered");
-        AssertNotContains(output.Content.GetContent(), "a11y-link-hint", "visible hint class should not be rendered when defaults are sr-only");
-    }
-
-    private static async Task HonorsPerLinkVisibleHintVisibility()
-    {
-        var helper = new A11yAnchorTagHelper(Options.Create(new A11yDefaultsOptions
-        {
-            LinkHintVisibility = A11yLinkHintVisibility.ScreenReaderOnly
-        }));
-
-        var output = CreateOutput(
-            "a",
-            "WAI guidance",
-            new TagHelperAttribute("href", "https://www.w3.org/WAI/"),
-            new TagHelperAttribute("target", "_blank"),
-            new TagHelperAttribute("a11y-hint-visibility", A11yLinkHintVisibility.Visible));
-
-        await helper.ProcessAsync(CreateContext(), output);
-
-        AssertContains(output.Content.GetContent(), "a11y-link-hint", "per-link visible hint class should be rendered");
-        AssertNotContains(output.Content.GetContent(), "a11y-sr-only", "sr-only hint class should not be rendered when a link opts into visible hints");
-        AssertFalse(output.Attributes.ContainsName("a11y-hint-visibility"), "hint visibility attribute should be removed from rendered anchors");
+        AssertNotContains(
+            output.Content.GetContent(),
+            "opens in new tab",
+            "new-tab hint should not be rendered as visible text");
     }
 
     private static async Task RendersDefaultSkipLink()
