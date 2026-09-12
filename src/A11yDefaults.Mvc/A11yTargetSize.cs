@@ -6,6 +6,9 @@ namespace A11yDefaults.Mvc;
 /// <summary>
 /// Target-size levels that map to the package's WCAG-oriented CSS classes.
 /// </summary>
+/// <summary>
+/// Target-size levels that map to the package's WCAG-oriented CSS classes.
+/// </summary>
 public enum A11yTargetSize
 {
     /// <summary>

@@ -56,13 +56,6 @@ public sealed class A11yAnchorTagHelper : TagHelper
     public bool ScreenReaderOnlyHint { get; set; }
 
     /// <summary>
-    /// Optional per-link hint visibility override. When omitted, the configured
-    /// <see cref="A11yDefaultsOptions.LinkHintVisibility"/> is used.
-    /// </summary>
-    [HtmlAttributeName("a11y-hint-visibility")]
-    public A11yLinkHintVisibility? HintVisibility { get; set; }
-
-    /// <summary>
     /// Suppresses the appended hint element while still allowing hints to be folded
     /// into <c>aria-label</c> when an accessible label is present.
     /// </summary>
@@ -111,44 +104,30 @@ public sealed class A11yAnchorTagHelper : TagHelper
             return;
         }
 
+        var combinedHints = A11yTagHelperUtilities.CombineHints(hints);
+        var childContent = await output.GetChildContentAsync();
+
         var accessibleLabel = output.Attributes["aria-label"]?.Value?.ToString();
+
+        // If no aria-label was provided, use link text as the base label.
+        if (string.IsNullOrWhiteSpace(accessibleLabel))
+        {
+            var linkText = childContent.GetContent()?.Trim();
+            if (!string.IsNullOrWhiteSpace(linkText))
+            {
+                accessibleLabel = linkText;
+            }
+        }
+
         if (!string.IsNullOrWhiteSpace(accessibleLabel))
         {
             output.Attributes.SetAttribute(
                 "aria-label",
-                A11yTagHelperUtilities.AppendHint(accessibleLabel, A11yTagHelperUtilities.CombineHints(hints)));
+                A11yTagHelperUtilities.AppendHint(accessibleLabel, combinedHints));
         }
 
-        if (SuppressHint)
-        {
-            return;
-        }
-
-        var childContent = await output.GetChildContentAsync();
+        // Keep original link text only (no visible appended hint).
         output.Content.SetHtmlContent(childContent);
-        output.Content.AppendHtml(
-            A11yTagHelperUtilities.BuildHint(
-                hintText: A11yTagHelperUtilities.CombineHints(hints),
-                options: _defaults,
-                srOnly: ResolveHintVisibility() == A11yLinkHintVisibility.ScreenReaderOnly,
-                hideFromAccessibilityTree: !string.IsNullOrWhiteSpace(accessibleLabel)));
-    }
-
-    /// <summary>
-    /// Resolves the effective hint visibility, preserving the existing
-    /// <c>a11y-sr-only-hint</c> shorthand as a per-link override.
-    /// </summary>
-    /// <returns>The visibility to use for generated hint text.</returns>
-    private A11yLinkHintVisibility ResolveHintVisibility()
-    {
-        if (HintVisibility.HasValue)
-        {
-            return HintVisibility.Value;
-        }
-
-        return ScreenReaderOnlyHint
-            ? A11yLinkHintVisibility.ScreenReaderOnly
-            : _defaults.LinkHintVisibility;
     }
 
     /// <summary>
@@ -207,7 +186,6 @@ public sealed class A11yAnchorTagHelper : TagHelper
         output.Attributes.RemoveAll("a11y-hit-target");
         output.Attributes.RemoveAll("a11y-label");
         output.Attributes.RemoveAll("a11y-sr-only-hint");
-        output.Attributes.RemoveAll("a11y-hint-visibility");
         output.Attributes.RemoveAll("a11y-suppress-hint");
         output.Attributes.RemoveAll("a11y-new-tab-text");
         output.Attributes.RemoveAll("a11y-download-text");

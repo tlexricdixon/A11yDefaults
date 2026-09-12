@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace A11yDefaults.Mvc.TagHelpers;
 
+
 /// <summary>
 /// Adds accessible defaults to button-like <c>input</c> elements while leaving
 /// text fields and other form controls untouched.
