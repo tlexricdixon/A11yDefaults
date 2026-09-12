@@ -46,11 +46,10 @@ internal static class SmokeTests
         await helper.ProcessAsync(CreateContext(), output);
 
         AssertEqual("nofollow noopener", output.Attributes["rel"]?.Value?.ToString(), "blank targets should include noopener");
-        AssertEqual(
-            "WCAG target size (opens in new tab)",
-            output.Attributes["aria-label"]?.Value?.ToString(),
-            "aria-label should include the new-tab hint");
-        AssertContains(output.Content.GetContent(), "opens in new tab", "visible hint should be appended to content");
+        AssertNotContains(
+     output.Content.GetContent(),
+     "opens in new tab",
+     "new-tab hint should not be rendered as visible text");
     }
 
     private static async Task HonorsScreenReaderOnlyHints()
