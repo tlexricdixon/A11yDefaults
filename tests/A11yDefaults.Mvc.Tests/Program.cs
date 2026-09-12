@@ -54,7 +54,8 @@ internal static class SmokeTests
 
     private static async Task HonorsScreenReaderOnlyHints()
     {
-        var helper = new A11yAnchorTagHelper(Options.Create(new A11yDefaultsOptions()))
+        var helper = new A11yAnchorTagHelper(
+            Options.Create(new A11yDefaultsOptions()))
         {
             ScreenReaderOnlyHint = true
         };
@@ -62,12 +63,22 @@ internal static class SmokeTests
         var output = CreateOutput(
             "a",
             "MDN anchor reference",
-            new TagHelperAttribute("href", "https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/a"),
+            new TagHelperAttribute(
+                "href",
+                "https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/a"),
             new TagHelperAttribute("target", "_blank"));
 
         await helper.ProcessAsync(CreateContext(), output);
 
-        AssertContains(output.Content.GetContent(), "a11y-sr-only", "sr-only hint class should be rendered");
+        AssertEqual(
+            "MDN anchor reference (opens in new tab)",
+            output.Attributes["aria-label"]?.Value?.ToString(),
+            "new-tab hint should be included in the accessible label");
+
+        AssertEqual(
+            "MDN anchor reference",
+            output.Content.GetContent(),
+            "visible link text should remain unchanged");
     }
 
     private static async Task HonorsDefaultScreenReaderOnlyHintVisibility()
