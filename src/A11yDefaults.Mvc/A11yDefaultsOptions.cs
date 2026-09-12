@@ -58,6 +58,7 @@ public sealed class A11yDefaultsOptions
     /// Gets or sets the default target-size treatment for anchors.
     /// </summary>
     public A11yTargetSize AnchorTargetSize { get; set; } = A11yTargetSize.None;
+    public A11yLinkHintVisibility LinkHintVisibility { get; set; } = A11yLinkHintVisibility.ScreenReaderOnly;
 
     /// <summary>
     /// Gets or sets the hint text appended to links that open in a new tab or
@@ -70,12 +71,6 @@ public sealed class A11yDefaultsOptions
     /// attribute.
     /// </summary>
     public string DownloadText { get; set; } = "downloads file";
-
-    /// <summary>
-    /// Gets or sets whether generated link hints are visible or only available
-    /// to assistive technology by default.
-    /// </summary>
-    public A11yLinkHintVisibility LinkHintVisibility { get; set; } = A11yLinkHintVisibility.Visible;
 
     /// <summary>
     /// Gets or sets the default text rendered by skip links when no child content

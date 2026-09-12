@@ -90,3 +90,4 @@ public sealed class A11ySkipLinkTagHelper : TagHelper
         return target.StartsWith('#') ? target : $"#{target}";
     }
 }
+
