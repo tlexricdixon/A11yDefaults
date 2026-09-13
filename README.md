@@ -4,7 +4,7 @@ Accessibility-first defaults for ASP.NET Core MVC.
 
 ## Supported frameworks
 
-The MVC package targets .NET 8, .NET 9, and .NET 10.
+The MVC package targets .NET 10.
 
 ## Projects
 
