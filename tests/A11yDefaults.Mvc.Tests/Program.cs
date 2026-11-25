@@ -20,6 +20,7 @@ internal static class SmokeTests
         //RendersA11yButtonAsPrimaryNativeButton();
         //HonorsA11yButtonTargetSizes();
         AppliesEnhancedTargetClassToInputs();
+        OverlengthTagHelperSmokeTests.Run();
         await AppliesFocusRingClassToAnchors();
         await EnhancesAnchorsWithGeneratedHref();
         await LeavesPlaceholderAnchorsUnstyled();
