@@ -122,6 +122,46 @@ Skip links default to `href="#main"` and `Skip to main content`. Override either
    a11y-skip-text="Jump to content"></a>
 ```
 
+## Opt-in validation feedback instead of silent truncation
+
+ASP.NET Core's `asp-for` may generate `maxlength` from `[StringLength]` or
+`[MaxLength]`. The browser then refuses to accept extra typed or pasted text
+without necessarily explaining why. For text fields where you want to accept
+the input temporarily and show a validation message, opt in:
+
+```csharp
+public sealed class ContactViewModel
+{
+    [Required]
+    [StringLength(255)]
+    public string? ContactName { get; set; }
+}
+```
+
+```cshtml
+<label asp-for="ContactName"></label>
+<input asp-for="ContactName" a11y-allow-overlength="true" class="form-control" />
+<span asp-validation-for="ContactName" class="invalid-feedback d-block"></span>
+```
+
+The helper runs after MVC's Input Tag Helper, removes its **generated**
+`maxlength` on supported text inputs and textareas, and leaves `name`,
+`id`, current value, `data-val-*` validation metadata, and all other
+attributes alone. It does **not** remove an explicit `maxlength` that you
+wrote in the Razor source. It does not act on radio, checkbox, number,
+hidden, or button inputs. The default behavior without the opt-in attribute
+is unchanged.
+
+Use `asp-validation-for` on the message element: it renders server-side
+`ModelState` errors as well as supporting unobtrusive client-side messages.
+Include the usual jQuery validation scripts if you want client-side feedback.
+Server-side model validation must remain enabled regardless of JavaScript.
+
+This helper changes only the generated HTML input restriction; it does **not**
+change the `[StringLength]` limit, configure character counters, or guarantee
+a particular server/browser newline-count policy. Always test submit/reload
+behavior and screen-reader error announcements in your application.
+
 ## WCAG defaults baked in
 
 - WCAG 2.2 SC 2.5.8 Target Size (Minimum): 24 by 24 CSS pixels for AA.
