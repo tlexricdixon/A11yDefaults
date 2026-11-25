@@ -162,6 +162,12 @@ change the `[StringLength]` limit, configure character counters, or guarantee
 a particular server/browser newline-count policy. Always test submit/reload
 behavior and screen-reader error announcements in your application.
 
+### Background: ASP.NET Core maxlength behavior reported since 2020
+
+This is not a new discovery. On **February 28, 2020**, [dotnet/aspnetcore issue #19439](https://github.com/dotnet/aspnetcore/issues/19439) reported that `[MaxLength]` / `[StringLength]` can result in a generated `maxlength` HTML attribute. That hard limit silently truncates pasted or typed text and prevents the intended client-side length error from appearing. The GitHub issue was closed with the label **Resolution: Answered**; it should not be characterized as a Microsoft-confirmed unresolved framework bug.
+
+`A11yAllowOverlengthTagHelper` exists to provide an **opt-in alternative user experience** without abandoning ASP.NET Core Tag Helpers. Server-side validation is still authoritative, and the application must provide meaningful error messages. No change is made to fields that do not opt in.
+
 ## WCAG defaults baked in
 
 - WCAG 2.2 SC 2.5.8 Target Size (Minimum): 24 by 24 CSS pixels for AA.
