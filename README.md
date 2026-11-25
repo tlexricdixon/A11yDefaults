@@ -40,6 +40,19 @@ Current MVC defaults cover:
 - Safer `target="_blank"` links with configurable visible or screen-reader-only hints.
 - Skip links for bypassing repeated navigation with keyboard focus.
 
+## Opt-in Tag Helper: avoid silent maxlength truncation
+
+The `A11yAllowOverlengthTagHelper` removes MVC-generated `maxlength` when explicitly requested, without replacing `asp-for` or losing model binding and client-side validation metadata.
+
+```cshtml
+<input asp-for="ContactName" a11y-allow-overlength="true" class="form-control" />
+<span asp-validation-for="ContactName" class="invalid-feedback d-block"></span>
+```
+
+ASP.NET Core's Input Tag Helper can generate an HTML `maxlength` from `[StringLength]` or `[MaxLength]`. A browser then silently cuts off excess typed or pasted characters, so the length-validation error may never appear. This behavior was publicly reported to the ASP.NET Core team on **February 28, 2020** in [dotnet/aspnetcore#19439](https://github.com/dotnet/aspnetcore/issues/19439). The issue was closed as **answered**, not formally classified as a Microsoft-confirmed framework bug. We treat the behavior as an accessibility and validation-feedback usability problem.
+
+Our helper is deliberately **opt-in**: it removes only generated `maxlength` for eligible MVC-bound text inputs and textareas, leaves author-specified limits intact, and does not change server-side `[StringLength]` validation. Keep `asp-validation-for` to render server-side as well as client-side messages. Full implementation notes and limitations are in [the MVC package README](src/A11yDefaults.Mvc/README.md#opt-in-validation-feedback-instead-of-silent-truncation).
+
 ## AI usage disclosure
 
 This project was developed with help from AI-based coding tools during implementation and review.
