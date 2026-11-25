@@ -70,7 +70,7 @@ internal static class OverlengthTagHelperSmokeTests
 
     private static void PreservesExplicitAuthorMaxlength()
     {
-        var (context, output) = Create(
+        var (context, output) = CreateWithExplicitMaxlength(
             "input",
             new TagHelperAttribute("asp-for", "Code"),
             new TagHelperAttribute("a11y-allow-overlength", "true"),
@@ -143,6 +143,17 @@ internal static class OverlengthTagHelperSmokeTests
             new TagHelperAttributeList(attributes),
             (_, _) => Task.FromResult<TagHelperContent>(new DefaultTagHelperContent()));
 
+        return (context, output);
+    }
+
+    private static (TagHelperContext Context, TagHelperOutput Output) CreateWithExplicitMaxlength(
+        string tagName, params TagHelperAttribute[] attributes)
+    {
+        var (_, output) = Create(tagName, attributes);
+        var context = new TagHelperContext(
+            new TagHelperAttributeList(attributes),
+            new Dictionary<object, object?>(),
+            Guid.NewGuid().ToString("N"));
         return (context, output);
     }
 
